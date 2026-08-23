@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111111" />
+  <title>For My Cat 🤍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --paper:#f5f3ee;
+      --ink:#181817;
+      --muted:#74736f;
+      --line:rgba(24,24,23,.12);
+      --accent:#9b786d;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:"DM Sans",system-ui,sans-serif;
+      overflow-x:hidden;
+    }
+    .noise{
+      position:fixed; inset:0; pointer-events:none; opacity:.035; z-index:20;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+    }
+    .wrap{max-width:1180px;margin:auto;padding:0 28px}
+    .hero{min-height:100svh;display:grid;place-items:center;padding:42px 0}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:8vw;align-items:center;width:100%}
+    .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+    h1,h2{font-family:"Playfair Display",Georgia,serif;font-weight:500;letter-spacing:-.04em;margin:0}
+    h1{font-size:clamp(3.8rem,8vw,7.8rem);line-height:.88}
+    h1 em{font-style:italic;color:var(--accent)}
+    .hero-copy p{max-width:480px;font-size:1.08rem;line-height:1.8;color:#5d5b57;margin:30px 0}
+    .signature{font-family:"Playfair Display",serif;font-size:1.35rem;font-style:italic}
+    .photo-shell{position:relative;padding:16px}
+    .photo-shell:before{
+      content:"";position:absolute;inset:0;border:1px solid var(--line);transform:rotate(3.2deg);
+    }
+    .photo{
+      width:100%;height:min(70svh,720px);object-fit:cover;object-position:center;
+      display:block;filter:saturate(.88) contrast(.98);
+    }
+    .little-note{
+      position:absolute;right:-20px;bottom:42px;background:#fffdfa;padding:17px 20px;
+      box-shadow:0 16px 45px rgba(0,0,0,.08);font-family:"Playfair Display",serif;font-style:italic;
+      transform:rotate(-3deg);font-size:1.05rem
+    }
+    .scroll{display:inline-flex;align-items:center;gap:12px;margin-top:32px;text-decoration:none;color:var(--ink);font-size:.82rem}
+    .dot{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:.3s}
+    .scroll:hover .dot{transform:translateY(4px);background:#fff}
+    section{padding:150px 0}
+    .letter{border-top:1px solid var(--line)}
+    .letter-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:10vw}
+    .section-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+    .letter h2{font-size:clamp(2.6rem,5vw,5rem);line-height:1.03;margin-bottom:35px}
+    .letter-body{font-size:1.15rem;line-height:1.9;max-width:690px;color:#44423f}
+    .letter-body p{margin:0 0 22px}
+    .highlight{font-family:"Playfair Display",serif;font-size:1.35em;font-style:italic;color:var(--accent)}
+    .promise{background:#20201e;color:#f7f4ed;text-align:center;position:relative;overflow:hidden}
+    .promise:before,.promise:after{content:"✦";position:absolute;color:#a68c82;font-size:28px;opacity:.7}
+    .promise:before{top:12%;left:12%}.promise:after{bottom:14%;right:13%}
+    .promise h2{font-size:clamp(3rem,7vw,7rem);line-height:.95;max-width:900px;margin:0 auto 30px}
+    .promise p{max-width:580px;margin:0 auto;color:#c8c4bc;line-height:1.8}
+    .cta{padding:130px 0;text-align:center}
+    .cta h2{font-size:clamp(3rem,6vw,6.3rem);line-height:.95}
+    .cta p{color:var(--muted);margin:24px auto 36px;max-width:480px;line-height:1.7}
+    .btn{
+      border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:15px 25px;
+      border-radius:999px;text-decoration:none;display:inline-block;transition:.3s;font-size:.9rem
+    }
+    .btn:hover{transform:translateY(-2px);background:#393936}
+    .final-message{display:none;margin:30px auto 0;max-width:560px;padding:26px;border:1px solid var(--line);background:rgba(255,255,255,.35);line-height:1.85;color:#4d4b47}
+    .final-message.show{display:block;animation:fade .8s ease both}
+    footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:.78rem;text-align:center}
+    @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+    .reveal.visible{opacity:1;transform:none}
+    @media(max-width:800px){
+      .wrap{padding:0 20px}.hero-grid,.letter-grid{grid-template-columns:1fr;gap:42px}
+      .hero{padding-top:28px}.hero-copy{order:1}.photo-shell{max-width:540px;margin:auto;width:100%}
+      .photo{height:62svh}.little-note{right:0;bottom:24px}
+      section{padding:100px 0}
+    }
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">A small place, made for one person</div>
+        <h1>For my<br><em>Cat.</em></h1>
+        <p>
+          Not a grand gesture. Not an excuse.
+          Just a quiet corner of the internet where I can say what I should have said better.
+        </p>
+        <div class="signature">My cat, Mekkey. 🤍</div>
+        <a class="scroll" href="#letter"><span>Read my heart</span><span class="dot">↓</span></a>
+      </div>
+
+      <div class="photo-shell">
+        <img class="photo" src="malak.jpeg" alt="A special photo for Mekkey">
+        <div class="little-note">you have always been<br>my favorite view.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="letter" id="letter">
+    <div class="wrap letter-grid">
+      <div class="section-label reveal">01 / The part I owe you</div>
+      <div class="reveal">
+        <h2>I’m sorry,<br><em>Mekkey.</em></h2>
+        <div class="letter-body">
+          <p>
+            I know that sometimes <span class="highlight">“I’m sorry” can sound too small</span>
+            for the way someone made you feel. And maybe I can’t undo a moment, a word, or a feeling that hurt you.
+          </p>
+          <p>
+            But I want you to know that I’m not saying this just because I miss the good moments.
+            I’m saying it because <b>I understand that I should have handled things better.</b>
+            You deserved more care from me, more patience, and a softer version of me when it mattered.
+          </p>
+          <p>
+            You are my <i>Mekkey</i>. My cat.
+            And even when I mess things up, that has never been something I take lightly.
+          </p>
+          <p>
+            I’m not asking you to forget. I’m not trying to pressure you into forgiving me.
+            I just wanted to leave the truth somewhere beautiful:
+            <span class="highlight">I’m genuinely sorry, and you genuinely matter to me.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="promise">
+    <div class="wrap reveal">
+      <div class="section-label" style="color:#aaa39a;margin-bottom:25px">02 / If I could say only one thing</div>
+      <h2>I never wanted to be<br>the reason your heart<br>felt a little heavier.</h2>
+      <p>
+        If there is a next conversation, I want to enter it with honesty.
+        No ego. No pretending. Just me, trying to be better with the person who means so much to me.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap reveal">
+      <div class="section-label">03 / One last thing</div>
+      <h2>If your heart ever<br>has room for a conversation...</h2>
+      <p>
+        I’ll be here. Not demanding an answer. Not rushing you.
+        Just hoping that maybe, when you’re ready, we can talk.
+      </p>
+      <button class="btn" id="openHeart">A little more from my heart 🤍</button>
+      <div class="final-message" id="finalMessage">
+        <b>To my Mekkey:</b><br><br>
+        Whatever happens, I hope you never doubt how beautiful you are to me —
+        not only in this picture, but in the way you exist in my memories, my thoughts, and my heart.
+        I’m sorry, my cat. Truly.
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Made quietly, with a very loud heart. — For Mekkey 🤍</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, {threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.getElementById('openHeart').addEventListener('click', () => {
+    const msg = document.getElementById('finalMessage');
+    msg.classList.add('show');
+    msg.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+</script>
+</body>
+</html>
